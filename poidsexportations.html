@@ -1,0 +1,120 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CEDEAO</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<style>
+</style>
+<meta charset="utf-8">
+</head>
+
+<body class="left-sidebar is-preload">
+        <div id="page-wrapper">
+		<!-- Header -->
+		<section id="header">
+			<!-- Logo -->
+			<h2><a href="index.html">Situation generale de la balance commerciale  </a></h2>
+                        <h2><a href="index.html"> des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ </a></h2>
+			<!-- Nav -->
+			<nav id="nav">
+                                <ul>
+                                        <li class="current"><a href="index.html">Accueil</a></li>
+                                        <li><a href="exportations.html">Exportations</a></li>
+                                        <li><a href="importations.html">Importaions</a></li>
+                                        <li><a href="poidsexportations.html">Poids des exportations</a></li>
+                                        <li><a href="solde.html">Solde commerciale </a></li>
+                                        <li><a href="catre_visualisation.html">Carte de visualisation</a></li>
+                                        <li>
+                                </ul>
+			</nav>
+                </section>
+                <!-- Main -->
+                <section id="main">
+	                <div class="container">	
+                                <marquee>LE POIDS DES EXPORTATIONS REALISEES CHAQUE ANNEE EN %  </marquee>
+                        </div>
+                </section>
+        </div>
+        <script src="d3.js"></script>
+
+        <script>
+
+                var tab_0=[ 9.3,5.3,76.5,8.9];
+                var tab_1=[9.46,5,76,12];
+                var tab_2=[10,4,75,11];
+                var tab=[tab_0,tab_1,tab_2];
+                var n=0;
+                var body=d3.select("body");
+                var echelleX=d3.scale.ordinal()
+                        .domain(["COTE D'IVOIRE","GHANA","NIGERIA","RESTE DES PAYS"])
+                        .rangeBands([30, 370]);
+                var echelleY=d3.scale.linear()
+                        .domain([0,80])
+                        .range([370,30]);
+                var xAxe = d3.svg.axis()
+                        .scale(echelleX)
+                        .orient("bottom");
+                var yAxe = d3.svg.axis()
+                        .scale(echelleY)
+                        .orient("left");
+                var svg=body.append("svg");
+                svg.attr({"width":"750px","height":"450px"});
+
+                svg.append("g")
+                .style("font-family","sans-serif")
+                .style("font-size","10px")
+                .attr({"fill": "none","stroke": "black"})
+                .attr("transform","translate(0,370)")
+                .call(xAxe);
+
+
+                svg.append("g")
+                .style("font-family","sans-serif")
+                .style("font-size","11px")
+                .attr({"fill": "none","stroke": "black"})
+                .attr("transform","translate(30,0)")
+                .call(yAxe);
+
+
+
+                function update(data){
+                var rect=svg.selectAll("rect").data(data);
+                rect.attr("height",function(d,i){
+                        return (370-echelleY(d))
+                })
+                .attr("y",function(d,i){
+                        return (echelleY(d))
+                });
+                rect.enter()
+                .append("rect")
+                .attr({"fill":"purple","stroke":"black"})
+                .attr("width",function(d,i){
+                return (340/data.length);
+
+                })
+
+                .attr("height",function(d,i){
+                        return (370-echelleY(d))
+                })
+                .attr("y",function(d,i){
+                        return (echelleY(d))
+                })
+                .attr("x",function(d,i){
+                        return (30+i*340/data.length)
+                }); }
+                update(tab[0]);
+                setInterval(function() {
+                if (n==2){
+                        n=-1;
+                }
+                n=n+1;
+                update(tab[n]);
+                }, 3000);
+
+        </script>
+</body>
+</html>
