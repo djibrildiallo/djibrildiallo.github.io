@@ -1,142 +1,168 @@
 <!DOCTYPE html>
-	<html>
-
-	
-	<head>
-	<meta charset="utf-8">
-	<title>CEDEAO</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	
-	<body class="left-sidebar is-preload">
-	    <div id="page-wrapper">
-
-		<!-- Header -->
-		<section id="header">
-
-			<!-- Logo -->
-			<h2><a href="index.html">Situation generale de la balance commerciale  </a></h2>
-			<h2><a href="index.html"> des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ </a></h2>
-
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li class="current"><a href="index.html">Accueil</a></li>
-					<li><a href="exportations.html">Exportations</a></li>
-					<li><a href="importations.html">Importaions</a></li>
-					<li><a href="poidsexportations.html">Poids des exportations</a></li>
-					<li><a href="solde.html">Solde commerciale </a></li>
-					<li><a href="catre_visualisation.html">Carte de visualisation</a></li>
-					<li>
-				</ul>
-			</nav>
-        </section>
-        <!-- Main -->
-        <section id="main">
-	        <div class="container">	
-
-                <marquee>LE POIDS DES IMPORTATIONS  EN MOYENNE ET POUR CHAQUE ANNNEE de 2006 a 2008  </marquee>
-				
-		    </div>
-		</section>
-    </div>
-	
-	<script src="d3.js"></script>
-	
-	<script>
-var tab=[{"valeur": 88876800000, "nom":"Nigeria"},{"valeur":
-40049156667, "nom":"Ghana"},{"valeur": 9399448000, "nom":"Cote d'ivoire"},
-{"valeur": 11096396667, "nom":"Senegal"},{"valeur": 19300000000, "nom":"Burkina faso"},{"valeur":23285711333, "nom":"Reste des pays"}];
-var couleurs=["green","black","purple","blue","grey","olive"];
-var body=d3.select("body");
-var svg=body.append("svg");
-svg.attr({"width":"600px","height":"600px"})
-var pieTab=d3.layout.pie();
-pieTab.value(function(d){
-                return d.valeur;
-});
-var arc=d3.svg.arc();
-arc.outerRadius(200);
-var grp=svg.selectAll("g.arcs").data(pieTab(tab))
-grp.enter()
-    .append("g")
-    .attr("class","arcs")
-    .attr("transform","translate(210,350)");
-grp.append("path")
-        .attr("fill",function(d,i){
-                        return(couleurs[i]);
-                })
-        .attr("d",arc);
-var leg=svg.selectAll("g.legende").data(pieTab(tab))
-leg.enter()
-    .append("g")
-    .attr("class","legende")
-    .attr("transform",function(d,i){
-        return "translate(450,"+(100+30*i)+")";
-        });
-leg.append("rect")
-        .attr("width",15)
-        .attr("height",15)
-        .attr("fill",function (d,i){
-                return couleurs[i];
-        });
-leg.append("text")
-        .attr("x", 25)
-        .attr('y', 12)
-        .attr("fill","black")
-        .style("font-size","12px")
-    .text(function(d,i) {
-        return d.data.nom;
-});
-
-// seconde code
-
-var tab_0=[42378100000,10400000000,787708000,5701730000,1800000000,11870547000];
-var tab_1=[37576000000,7982120000,6672900000,4250000000,17000000000,8831046000];
-var tab_2=[26768100000,65001110000,5816520000,3434000000,1500000000,7752355000];
-var tab=[tab_0,tab_1,tab_2]
-var n=0;
-var couleurs=["green","black","purple","blue","grey","olive"];
-var body=d3.select("body");
-var svg=body.append("svg");
-svg.attr({"width":"400px","height":"400px"})
-svg.style("border","1px solid black");
-var pieTab=d3.layout.pie();
-pieTab.value(function(d){
-return d; });
-var arc=d3.svg.arc();
-arc.outerRadius(180);
-var grp=svg.append("g").attr("transform","translate(200,200)");
-var graph=grp.selectAll("path").data(pieTab(tab_0))
-graph.enter()
-        .append("path")
-        .attr("fill",function(d,i){
-                        return(couleurs[i]);
-                })
-        .attr("d",arc)
-        .each(function(d){this._current=d;});
-function update(data){
-    graph.data(pieTab(data));
-    graph.transition().duration(750).attrTween("d", arcTween);
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.axis{
+font:8px sans-serif;
+fill:none;
+stroke:BLACK;
+shape-rendering : crispEdges;
 }
-function arcTween(a) {
-  var i = d3.interpolate(this._current, a);
-  this._current = i(0);
-  return function(t) {
-    return arc(i(t));
-  };
-}
-setInterval(function() {
-        if (n==2){
-                n=-1;
-        }
-        n=n+1;
-        update(tab[n]);
- }, 3000);
+FORM{
+position : absolute ;
+right:200px
 
+}
+</style>
+	
+</head>
+
+<body>
+<marquee>La situation generale de la balance commerciale des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ ! </marquee>
+<FORM NAME="Choix">
+<SELECT NAME="Liste" onChange="Lien()">
+<OPTION VALUE="">Choisir element
+<OPTION VALUE="exportations.html">Exportations
+<OPTION VALUE="importations.html">Importations
+
+
+</SELECT>
+</FORM>
+<script src="d3.js"></script>
+
+<script>
+function Lien() {
+i = document.Choix.Liste.selectedIndex;
+if (i == 0) return;
+url = document.Choix.Liste.options[i].value;
+parent.location.href = url;
+}
 
 </script>
+<script>
+var body=d3.select("body");
+body.append("h1")
+.style("color","black")
+.style("text-align","center")
+.text("situation generale des importations");
+
+//Parametrage des dimensions
+var margin = {top:20, right:500, bottom:90, left:120},
+width = 950, height = 970;
+
+
+//Mise en place du cadre de dessin
+var svg = d3.select("body").append("svg")
+.attr("width",width + margin.left + margin.right)
+.style("background-color","Snow")
+.attr("height",height + margin.top + margin.bottom)
+.append("g")
+.attr("transform","translate(" + margin.left + "." + margin.top + ")");
+/// Colorer les pays
+var couleur=["green","yellow","red","blue","brown","orange","gray","pink","powderBlue","Coral","teal","silver","tomato","gray","purple"];
+
+var region=
+[{"regions":"Nigeria", "nom":"Nigeria", "part":88876800000},
+{"regions":"Cote d'ivoire", "nom":"Cote d'ivoire", "part":9399448000},
+{"regions":"Senegal", "nom":"Senegal", "part":11096396667},
+{"regions":"Ghana", "nom":"Ghana", "part":40049156667},
+{"regions":"Guinea", "nom":"Guinea", "part":3090000000},
+{"regions":"Guinea bissau", "nom":"Guinee bissau", "part":306666666.7},
+{"regions":"Gambia", "nom":"Gambia", "part":720831333.3},
+{"regions":"Mali", "nom":"Mali", "part":5164666667},
+{"regions":"Liberia", "nom":"Liberia", "part":1522066667},
+{"regions":"Benin", "nom":"Benin", "part":3420000000},
+{"regions":"Burkina faso", "nom":"Burkina faso", "part":19300000000},
+{"regions":"Capo verde", "nom":"Capo verde", "part":1757022667},
+{"regions":"Sierra leone", "nom":"Sierra leone", "part":1134457333},
+{"regions":"Togo", "nom":"Togo", "part":3433333333},
+{"regions":"Niger", "nom":"Niger", "part":2736666667}];
+var couleurs=["Nigeria","Cote d'ivoire","Senegal","Ghana","Guinea","Guinea bissau","Gambia","Mali","Liberia","Benin","Burkina faso","Capo verde","Sierra leone","Togo","Niger"]
+
+//Mise en place des axes
+var x = d3.scale.ordinal()
+	.rangeRoundBands([0,width],0.10);
+
+
+var y = d3.scale.linear()
+.range([height,0]);
+
+var xAxis = d3.svg.axis()
+.scale(x)
+.orient("bottom");
+
+var yAxis = d3.svg.axis()
+.scale(y)
+.orient("left")
+.ticks(10);
+
+region.forEach(function(d){
+	d.regions = d.regions;
+	d.part = +d.part;
+});
+
+x.domain(region.map(function(d){return d.regions;}));
+y.domain([0,d3.max(region, function(d){return d.part;})]);
+
+svg.append("g")
+.attr("class","x axis")
+.attr("transform","translate(0,"+height+")")
+.call(xAxis);
+
+svg.append("g")
+.attr("class","y axis")
+.call(yAxis);
+
+
+svg.append('text')
+.attr('x',-500)
+.attr('y', -70)
+.attr('transform', 'rotate(-90)')
+.attr('text-anchor', 'middle')
+.style("stroke","blue")
+.text('')
+
+svg.append('text')
+.attr('x', 500)
+.attr('y', 1050)
+.attr('text-anchor', 'middle')
+.style("stroke","blue")
+.text('')
+//Representation des donnĂ©es en bande
+var group = svg.append("g");
+group.selectAll("bar")
+.data(region)
+.enter()
+.append("rect")
+.attr("class","bar")
+.attr("x",function(d){return x(d.regions);})
+.attr("width",x.rangeBand())
+.attr("y",function(d){return y(d.part);})
+.attr("height",function(d){return height - y(d.part);})
+.attr("fill",function(d,i){
+		return(couleur[i]);
+	});
+
+
+var legends = svg.append("g").attr("transform", "translate(950,50)")
+.selectAll(".legends").data(region);
+
+var legend = legends.enter().append("g").classed("label", true).attr
+("transform", function(d,i){return "translate(0," + (i+1)*30 + ")";});
+
+legend.append("rect").attr("width", 15).attr("height", 15).attr("fill", function(d,i){
+		return(couleur[i]) ;});
+
+
+legend.append("text").classed("label", true).text(function(d,i){return couleurs[i];})
+.attr("fill", function(d,i){
+		return(couleur[i]);})
+.attr("x", 30)
+.attr("y", 15);
+
+</script>
+
 </body>
 </html>
+
