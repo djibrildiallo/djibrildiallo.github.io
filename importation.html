@@ -15,20 +15,57 @@ right:200px
 
 }
 </style>
-	
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
-<body>
-<marquee>La situation generale de la balance commerciale des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ ! </marquee>
-<FORM NAME="Choix">
-<SELECT NAME="Liste" onChange="Lien()">
-<OPTION VALUE="">Choisir element
-<OPTION VALUE="exportations.html">Exportations
-<OPTION VALUE="importation.html">Importation
+<body class="homepage is-preload">
+	<div id="page-wrapper">
+	<!-- Header -->
+	<section id="header">
 
+		<!-- Logo -->
+		<h2><a href="index.html">Situation generale de la balance commerciale  </a></h2>
+		<h2><a href="index.html"> des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ </a></h2>
 
-</SELECT>
-</FORM>
+		<!-- Nav -->
+		<nav id="nav">
+			<ul>
+				<li class="current"><a href="index.html">Accueil</a></li>
+				<li><a href="exportations.html">Imports/Exports</a></li>
+				<li><a href="importations.html">Poids des importations</a></li>
+				<li><a href="poidsexportations.html">Poids des exportations</a></li>
+				<li><a href="solde.html">Solde commercial </a></li>
+				<li><a href="catre_visualisation.html">Carte de visualisation</a></li>
+				<li>
+					<a href="article.pdf"
+					download="article.pdf">Télécharger l'article en pdf</a>
+				</li>
+			</ul>
+		</nav>
+	</section>
+	<!-- Main -->
+	<section id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<section>	
+						<marquee>La situation generale de la balance commerciale des pays de la CEDEAO de 2006 a 2008 en MILLIONS DE $ ! </marquee>
+						<FORM NAME="Choix">
+							<SELECT NAME="Liste" onChange="Lien()">
+								<OPTION VALUE="">Choisir element
+								<OPTION VALUE="exportations.html">Exportations
+								<OPTION VALUE="importation.html">Importation
+							</SELECT>
+						</FORM>							
+					</section>
+				</div>									
+			</div>
+        </section>
+
+	</div>
+
 <script src="d3.js"></script>
 
 <script>
